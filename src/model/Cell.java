@@ -6,7 +6,7 @@
 */
 package model;
 
-public class Box {
+public class Cell {
 
     // -----------------------------------------------------------------
     // Constants
@@ -45,31 +45,31 @@ public class Box {
     // Relations
     // -----------------------------------------------------------------
 
-    private Box next;
-    private Box prev;
-    private Box up;
-    private Box down;
+    private Cell next;
+    private Cell prev;
+    private Cell up;
+    private Cell down;
 
     // -----------------------------------------------------------------
     // Methods
     // -----------------------------------------------------------------
 
     /**
-	 * Name: Box
-	 * Constructor method of a box. <br>
-	 * @param nomenclature - Box nomenclature - nomenclature = String, nomenclature != null, nomenclature != ""
-     * @param hasMirror - Attribute to identify if a box has a mirror - hasMirror = boolean, hasMirror != null, hasMirror begins in false once the Box object is created.
-     * @param mirror - Mirror inclination - mirror = char, mirror != null, mirror begins empty once the Box object is created.
-     * @param isCorner - Attribute to identify if a box is in a corner of the grid - isCorner = boolean, isCorner != null
-     * @param isEdge - Attribute to identify if a box is on an edge of the grid - isEdge = boolean, isEdge != null
-     * @param typeCorner - Corner type if a box is in a corner of the grid - typeCorner = String, typeCorner != null
-     * @param typeEdge - Edge type if a box is on an edge of the grid - typeEdge = String, typeEdge != null
-     * @param isStart - Attribute to identify if a box was chosen to begin a laser shot in it - isStart = char, isStart != null, isStart begins empty once the Box object is created.
-     * @param isEnd - Attribute to identify in which box the laser beam ended its traversal - isEnd = char, isEnd != null, isEnd begins empty once the Box object is created.
-     * @param mirrorGuessed - Attribute to identify if a mirror present in a box was guessed - mirrorGuessed = boolean, mirrorGuessed != null, mirrorGuessed begins in false once the Box object is created.
-     * @param mirrorWrong - Attribute to identify if a user guessed wrongly a mirror present in a box - mirrorWrong = boolean, mirrorWrong != null, mirrorWrong begins in false once the Box object is created.
+	 * Name: Cell
+	 * Constructor method of a cell. <br>
+	 * @param nomenclature - Cell nomenclature - nomenclature = String, nomenclature != null, nomenclature != ""
+     * @param hasMirror - Attribute to identify if a cell has a mirror - hasMirror = boolean, hasMirror != null, hasMirror begins in false once the Cell object is created.
+     * @param mirror - Mirror inclination - mirror = char, mirror != null, mirror begins empty once the Cell object is created.
+     * @param isCorner - Attribute to identify if a cell is in a corner of the grid - isCorner = boolean, isCorner != null
+     * @param isEdge - Attribute to identify if a cell is on an edge of the grid - isEdge = boolean, isEdge != null
+     * @param typeCorner - Corner type if a cell is in a corner of the grid - typeCorner = String, typeCorner != null
+     * @param typeEdge - Edge type if a cell is on an edge of the grid - typeEdge = String, typeEdge != null
+     * @param isStart - Attribute to identify if a cell was chosen to begin a laser shot in it - isStart = char, isStart != null, isStart begins empty once the Cell object is created.
+     * @param isEnd - Attribute to identify in which cell the laser beam ended its traversal - isEnd = char, isEnd != null, isEnd begins empty once the Cell object is created.
+     * @param mirrorGuessed - Attribute to identify if a mirror present in a cell was guessed - mirrorGuessed = boolean, mirrorGuessed != null, mirrorGuessed begins in false once the Cell object is created.
+     * @param mirrorWrong - Attribute to identify if a user guessed wrongly a mirror present in a cell - mirrorWrong = boolean, mirrorWrong != null, mirrorWrong begins in false once the Cell object is created.
 	*/
-    public Box(String nomenclature, boolean hasMirror, char mirror, boolean isCorner, boolean isEdge, String typeCorner, String typeEdge, char isStart, char isEnd, boolean mirrorGuessed, boolean mirrorWrong) {
+    public Cell(String nomenclature, boolean hasMirror, char mirror, boolean isCorner, boolean isEdge, String typeCorner, String typeEdge, char isStart, char isEnd, boolean mirrorGuessed, boolean mirrorWrong) {
         this.nomenclature = nomenclature;
         this.hasMirror = hasMirror;
         this.mirror = mirror;
@@ -171,35 +171,35 @@ public class Box {
         this.mirrorWrong = mirrorWrong;
     }
 
-    public Box getNext() {
+    public Cell getNext() {
         return next;
     }
 
-    public void setNext(Box right) {
+    public void setNext(Cell right) {
         this.next = right;
     }
 
-    public Box getPrev() {
+    public Cell getPrev() {
         return prev;
     }
 
-    public void setPrev(Box left) {
+    public void setPrev(Cell left) {
         this.prev = left;
     }
 
-    public Box getUp() {
+    public Cell getUp() {
         return up;
     }
 
-    public void setUp(Box up) {
+    public void setUp(Cell up) {
         this.up = up;
     }
 
-    public Box getDown() {
+    public Cell getDown() {
         return down;
     }
 
-    public void setDown(Box down) {
+    public void setDown(Cell down) {
         this.down = down;
     }
 }

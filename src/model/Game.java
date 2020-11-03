@@ -130,9 +130,9 @@ public class Game {
         String message = "";
         if (guess.length() >= 4) {
             if (guess.charAt(0) == 'L') {
-                if (guess.charAt(guess.length() - 1) == Box.MIRROR_LEFT || guess.charAt(guess.length() - 1) == Box.MIRROR_RIGHT) {
+                if (guess.charAt(guess.length() - 1) == Cell.MIRROR_LEFT || guess.charAt(guess.length() - 1) == Cell.MIRROR_RIGHT) {
                     String nomenclature = guess.substring(1, guess.length() - 1);
-                    Box objSearch = grid.searchBoxDown(nomenclature, grid.getFirst());
+                    Cell objSearch = grid.searchBoxDown(nomenclature, grid.getFirst());
                     if (objSearch != null) {
                         if (objSearch.getHasMirror() == true && objSearch.getMirror() == guess.charAt(guess.length() - 1)) {
                             if (objSearch.getMirrorWrong()) {
@@ -147,7 +147,7 @@ public class Game {
                             objSearch.setMirrorWrong(true);
                         }
                     } else
-                        message = "\nInvalid box identifier. Try again.\n";
+                        message = "\nInvalid cell identifier. Try again.\n";
                 } else
                     message = "\nInvalid character " + "'" + guess.charAt(guess.length() - 1) + "'" + " in command " + "'" + guess + "' .\n";
             } else
