@@ -365,6 +365,7 @@ public class Grid {
      * <b>post: </b> Searching process determined of a box (node) from the grid. <br>
      * @param nomenclature - Box nomenclature - nomenclature = String, nomenclature != null, nomenclature != ""
      * @param first - First box (node) of a row - first = Box object
+     * @return A Box object different from null if the box (node) in question was found in the grid, or with null if not.
     */
     public Box searchBoxDown(String nomenclature, Box first) {
         Box objSearch = null;

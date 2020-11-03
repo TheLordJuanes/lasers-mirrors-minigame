@@ -24,6 +24,9 @@ After doing many trials on the calculator with different mathematical operations
 
 * Each laser fired: + 50 points.
 * Each failed location attempt: + 100 points.
+* n -> rows
+* m -> columns
+* k -> mirrors
 
 Formula:
 
