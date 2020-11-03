@@ -1,0 +1,9 @@
+{
+    "git.ignoreLimitWarning": true,
+    "java.dependency.packagePresentation": "hierarchical",
+    "cSpell.words": [
+        "aiobe",
+        "cnfe",
+        "inorder"
+    ]
+}
