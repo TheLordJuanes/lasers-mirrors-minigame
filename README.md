@@ -18,19 +18,19 @@ When the user chooses to play, a game, a grid of size m x n is created, with k m
 
 When returning to the main menu, either by typing 'menu' or by winning the game, a score is calculated for the user that is stored in a binary search tree ordered by score. The option 2 displays a list of the users' nickname with their respective scores, result of traversing the binary search tree in inorder travel.
 
-### Score calculation
+### Score calculation 🧮
 
 After doing many trials on the calculator with different mathematical operations, I came up with the following invented formula. There is no specific reason why I used an specific mathematical operation present in this formula. Each operation was just an idea that came to my mind and that's it. On the other hand, it must be clarified that with this formula, the more shots the player makes and the more failed location attempts he/she has, the higher his/her score will be. That is to say that the less the player shoots and the less he/she makes mistakes locating mirrors, the lower his/her score will be. Therefore, the one with the lowest score will be better ranked on the leaderboard.
 
-* Each laser fired: + 50 points.
-* Each failed location attempt: + 100 points.
-* n -> rows
-* m -> columns
-* k -> mirrors
+- Each laser fired: + 50 points.
+- Each failed location attempt: + 100 points.
+- n -> rows
+- m -> columns
+- k -> mirrors
 
-Formula:
+**Formula:**
 
-
+<img src = "data/ScoreFormula.png" >
 
 ## Documentation 📃
 
@@ -38,10 +38,10 @@ Check the functional requirements and the UML Class Diagram [here]
 
 ## Technical conditions 🛠️
 
-* Programming Language 💱 : [Java]
-* Operating system used 💻 : macOS Catalina v. 10.15.7
-* Integrated Development environment used 👨🏻‍💻 : Visual Studio Code v. 1.50.1
-* Installation 🔧 : Download the .ZIP file. This program requires JRE 13.0.2+8
+- Programming Language 💱 : Java
+- Operating system used 💻 : macOS Catalina v. 10.15.7
+- Integrated Development environment used 👨🏻‍💻 : Visual Studio Code v. 1.50.1
+- Installation 🔧 : Click on Code, then on Download ZIP. This program requires JRE 13.0.2+8
 
 ## Author 🖊️
 

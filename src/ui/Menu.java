@@ -122,7 +122,7 @@ public class Menu {
     /**
      * Name: shootLaserBeam
      * Method used to shoot the laser beam at an edge or corner location of the game.getGrid(), so that it goes through it bouncing off the mirrors. <br>
-     * <b>pre: </b> Grid already created with all its boxes (nodes) and mirrors present. <br>
+     * <b>pre: </b> Grid already created with all its boxes (nodes) and mirrors present. The user will always enter only the box nomenclature without any direction specification. <br>
      * <b>post: </b> Shooting start location and shooting end location of the laser beam in question determined and printed in the game.getGrid() with 'S' ("Start") and 'E' ("End"). <br>
      * @param nickname - User nickname - nickname = String, nickname != null, nickname != "".
      * @param rows - Grid rows - rows = int, rows != null, nickname != 0.
@@ -133,51 +133,47 @@ public class Menu {
         System.out.println("\n" + nickname + ": " + game.getGrid().getMirrors() + " mirror(s) remaining.\n");
         game.getGrid().displayDown(game.getGrid().getFirst());
         System.out.print("\nEnter only the box nomenclature to make a laser shot: ");
-        String shot = scanner.nextLine().toUpperCase();
+        String nomenclature = scanner.nextLine().toUpperCase();
+        /*String shot = scanner.nextLine().toUpperCase();
         String row = shot.substring(0, shot.length() - 1);
         System.out.println(row);
         char column = shot.charAt(shot.length() - 1);
         System.out.println(column);
         String nomenclature = row + Character.toString(column);
-        System.out.println();
+        System.out.println();*/
         Box objSearch = game.getGrid().searchBoxDown(nomenclature, game.getGrid().getFirst());
         if (objSearch != null) {
             if (objSearch.getIsCorner()) {
-                if (shot.length() >= 3) {
-                    if (shot.charAt(shot.length() - 1) == 'H' || shot.charAt(shot.length() - 1) == 'V') {
-                        if (shot.endsWith("H")) {
-                            objSearch.setIsStart(Box.START);
-                            if (objSearch.getTypeCorner().equals(Box.SUPERIOR_LEFT) || objSearch.getTypeCorner().equals(Box.INFERIOR_LEFT))
-                                game.getGrid().moveRight(objSearch);
-                            else if (objSearch.getTypeCorner().equals(Box.SUPERIOR_RIGHT) || objSearch.getTypeCorner().equals(Box.INFERIOR_RIGHT)) {
-                                game.getGrid().moveLeft(objSearch);
-                            }
-                            objSearch.setIsStart(' ');
-                            game.getGrid().setFinish(false);
-                            game.setLasersFired(game.getLasersFired() + 1);
-                            subMenu(nickname, true, rows, columns, mirrors);
-                        } else if (shot.endsWith("V")) {
-                            objSearch.setIsStart(Box.START);
-                            if (objSearch.getTypeCorner().equals(Box.SUPERIOR_LEFT) || objSearch.getTypeCorner().equals(Box.SUPERIOR_RIGHT))
-                                game.getGrid().moveDown(objSearch);
-                            else if (objSearch.getTypeCorner().equals(Box.INFERIOR_LEFT) || objSearch.getTypeCorner().equals(Box.INFERIOR_RIGHT)) {
-                                game.getGrid().moveUp(objSearch);
-                            }
-                            objSearch.setIsStart(' ');
-                            game.getGrid().setFinish(false);
-                            game.setLasersFired(game.getLasersFired() + 1);
-                            subMenu(nickname, true, rows, columns, mirrors);
-                        } else {
-                            System.out.println(shot + " is not a valid option. Try again.");
-                            shootLaserBeam(nickname, rows, columns, mirrors);
+                System.out.print("\nCorner detected. Enter the box nomenclature followed by the shot direction ('H' or 'V') : ");
+                String direction = scanner.nextLine().toUpperCase();
+                if (direction.length() >= 3) {
+                    System.out.println(direction.charAt(direction.length() - 2));
+                    if ((direction.endsWith("H") && direction.charAt(direction.length() - 2) != 'H') || (direction.endsWith("H") && direction.charAt(direction.length() - 2) == 'H')) {
+                        objSearch.setIsStart(Box.START);
+                        if (objSearch.getTypeCorner().equals(Box.SUPERIOR_LEFT) || objSearch.getTypeCorner().equals(Box.INFERIOR_LEFT))
+                            game.getGrid().moveRight(objSearch);
+                        else if (objSearch.getTypeCorner().equals(Box.SUPERIOR_RIGHT) || objSearch.getTypeCorner().equals(Box.INFERIOR_RIGHT)) {
+                            game.getGrid().moveLeft(objSearch);
                         }
+                        objSearch.setIsStart(' ');
+                        game.getGrid().setFinish(false);
+                        game.setLasersFired(game.getLasersFired() + 1);
+                        subMenu(nickname, true, rows, columns, mirrors);
+                    } else if ((direction.endsWith("V") && direction.charAt(direction.length() - 2) != 'V') || (direction.endsWith("V") && direction.charAt(direction.length() - 2)== 'V')) {
+                        objSearch.setIsStart(Box.START);
+                        if (objSearch.getTypeCorner().equals(Box.SUPERIOR_LEFT) || objSearch.getTypeCorner().equals(Box.SUPERIOR_RIGHT))
+                            game.getGrid().moveDown(objSearch);
+                        else if (objSearch.getTypeCorner().equals(Box.INFERIOR_LEFT) || objSearch.getTypeCorner().equals(Box.INFERIOR_RIGHT)) {
+                            game.getGrid().moveUp(objSearch);
+                        }
+                        objSearch.setIsStart(' ');
+                        game.getGrid().setFinish(false);
+                        game.setLasersFired(game.getLasersFired() + 1);
+                        subMenu(nickname, true, rows, columns, mirrors);
                     } else {
-                        System.out.println("\nYou didn't specify the shot direction, being " + nomenclature + " a corner.\n");
+                        System.out.println("\n" + direction + " is not a valid command. Try again.");
                         shootLaserBeam(nickname, rows, columns, mirrors);
                     }
-                } else {
-                    System.out.println("\nYou didn't specify the shot direction, being " + nomenclature + " a corner.\n");
-                    shootLaserBeam(nickname, rows, columns, mirrors);
                 }
             } else if (objSearch.getIsEdge()) {
                 objSearch.setIsStart(Box.START);
@@ -195,11 +191,11 @@ public class Menu {
                 game.setLasersFired(game.getLasersFired() + 1);
                 subMenu(nickname, true, rows, columns, mirrors);
             } else {
-                System.out.println("\nError. A shot can only be made from a cell on the edge of the game.getGrid(). Try again.");
+                System.out.println("\nA shot can only be fired from a cell on an edge or in a corner of the grid. Try again.");
                 shootLaserBeam(nickname, rows, columns, mirrors);
             }
         } else {
-            System.out.println("Error. Invalid box identifier. Try again.");
+            System.out.println("\nError. Invalid box identifier. Try again.");
             shootLaserBeam(nickname, rows, columns, mirrors);
         }
     }
