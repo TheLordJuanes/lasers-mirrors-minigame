@@ -14,16 +14,22 @@ public class Grid {
     // Attributes
     // -----------------------------------------------------------------
 
+    // attribute that represents the number of rows of a grid.
     private int rows;
+    // attribute that represents the number of columns of a grid.
     private int columns;
+    // attribute that represents the number of mirrors chosen by the user that will be placed randomly in a grid.
     private int mirrors;
+    // attribute used in the randomMirrorsDown() and the randomMirrorsRight() method to count the number of mirrors that have already been placed randomly in a grid.
     private int counterMirrors;
+    // attribute to determine if the traversal of a laser beam has finished or not.
     private boolean finish;
 
     // -----------------------------------------------------------------
     // Relations
     // -----------------------------------------------------------------
 
+    // relation to the first cell of a grid.
     private Cell first;
 
     // -----------------------------------------------------------------

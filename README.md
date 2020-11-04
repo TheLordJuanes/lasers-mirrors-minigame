@@ -30,7 +30,7 @@ After doing many trials on the calculator with different mathematical operations
 
 **Formula:**
 
-<img src = "data/ScoreFormula.png" >
+<img src = "resources/ScoreFormula.png" >
 
 ## Documentation 📃
 

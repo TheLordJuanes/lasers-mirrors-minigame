@@ -17,18 +17,21 @@ public class Menu {
     // Constants
     // -----------------------------------------------------------------
 
+    // constant that represents the separator used when the user enters his/her nickname, the number of rows of the grid, the number of columns of the grid, and the number of mirrors of the grid.
     public final static String SEPARATOR = " ";
 
     // -----------------------------------------------------------------
     // Attributes
     // -----------------------------------------------------------------
 
+    // scanner to read inputs by console.
     public Scanner scanner = new Scanner(System.in);
 
     // -----------------------------------------------------------------
     // Relations
     // -----------------------------------------------------------------
 
+    // relation to the main model class.
     private Game game;
 
     // -----------------------------------------------------------------

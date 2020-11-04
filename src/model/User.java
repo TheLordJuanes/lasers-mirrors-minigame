@@ -10,24 +10,37 @@ import java.io.Serializable;
 
 public class User implements Serializable {
 
+    // -----------------------------------------------------------------
+    // Constants
+    // -----------------------------------------------------------------
+
+    // constant that represents the version number of the User class.
     private static final long serialVersionUID = 1L;
 
     // -----------------------------------------------------------------
     // Attributes
     // -----------------------------------------------------------------
 
+    // attribute that represents the nickname of a user.
     private String nickname;
+    // attribute that represents the score that a user obtains after winning the game or after returning to the menu without finishing/winning it.
     private double score;
+    // attribute that represents the number of rows the user chose to create the grid.
     private int rowsChosen;
+    // attribute that represents the number of columns the user chose to create the grid.
     private int columnsChosen;
+    // attribute that represents the number of mirrors the user chose and that will be placed randomly in the grid.
     private int mirrorsChosen;
 
     // -----------------------------------------------------------------
     // Relations
     // -----------------------------------------------------------------
 
+    // relation to the parent of a node in the binary search tree.
     private User parent;
+    // relation to the left child of a parent node in the binary search tree.
     private User left;
+    // relation to the right child of a parent node in the binary search tree.
     private User right;
 
     // -----------------------------------------------------------------

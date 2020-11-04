@@ -17,22 +17,29 @@ public class Game {
     // Constants
     // -----------------------------------------------------------------
 
+    // constant that represents the binary file where the root and so all the users (nodes) of the binary search tree are serialized.
     public final static String SAVE_USERS_PATH_FILE = "data/users.ap2";
 
     // -----------------------------------------------------------------
     // Attributes
     // -----------------------------------------------------------------
 
+    // attribute that represents the name of this game.
     private String nameGame;
+    // attribute to determine if the game is over.
     private boolean gameOver;
+    // attribute to count the number of laser shots the user do during the game.
     private int lasersFired;
+    // attribute to count the number of failed attempts the user has during the game.
     private int attemptsFailed;
 
     // -----------------------------------------------------------------
     // Relations
     // -----------------------------------------------------------------
 
+    // relation to the grid of the game.
     private Grid grid;
+    // relation to the binary search tree of the program.
     private BSTUsers bstUsers;
 
     // -----------------------------------------------------------------

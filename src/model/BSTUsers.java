@@ -13,18 +13,25 @@ import java.io.Serializable;
 
 public class BSTUsers implements Serializable {
 
+    // -----------------------------------------------------------------
+    // Constants
+    // -----------------------------------------------------------------
+
+    // constant that represents the version number of the BSTUsers class.
     private static final long serialVersionUID = 1L;
 
     // -----------------------------------------------------------------
     // Attributes
     // -----------------------------------------------------------------
 
+    // attribute to rank the users' position in the leaderboard.
     private int position;
 
     // -----------------------------------------------------------------
     // Relations
     // -----------------------------------------------------------------
 
+    // relation to the first user (node) of the binary search tree.
     private User root;
 
     // -----------------------------------------------------------------
