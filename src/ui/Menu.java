@@ -138,6 +138,7 @@ public class Menu {
         System.out.print("\nEnter a command to make a laser shot: ");
         String shot = scanner.nextLine().toUpperCase();
         String nomenclature = shot;
+        System.out.println();
         if (shot.substring(shot.length() - 2, shot.length() - 1).matches("[A-Z]") && shot.substring(shot.length() - 1, shot.length()).matches("[A-Z]")) {
             String row = shot.substring(0, shot.length() - 2);
             String column = shot.substring(shot.length() - 2, shot.length() - 1);
@@ -298,7 +299,8 @@ public class Menu {
         if (game.getBstUsers().getRoot() == null)
             System.out.println("\nThere are no registered scores yet to show them.\n");
         else {
-            System.out.println("\n----------Leaderboard----------\n\n");
+            System.out.println("\n-----------------------------Leaderboard-----------------------------\n");
+            System.out.println("Rank | Nickname | Score | Grid rows | Grid columns | Mirrors to find\n");
             System.out.println(game.getBstUsers().printInorder(game.getBstUsers().getRoot()));
             game.getBstUsers().setPosition(1);
         }

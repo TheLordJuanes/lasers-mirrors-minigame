@@ -123,7 +123,7 @@ public class BSTUsers implements Serializable {
             return scores;
         }
         scores += printInorder(user.getLeft());
-        scores += position + "º " + user.getNickname() + " | " + user.getScore() + " points" + " | " + user.getRowsChosen() + " | " + user.getColumnsChosen() + " | " + user.getMirrorsChosen();
+        scores += position + "º" + " | " + user.getNickname() + " | " + user.getScore() + " points" + " | " + user.getRowsChosen() + " | " + user.getColumnsChosen() + " | " + user.getMirrorsChosen() + "\n";
         position++;
         scores += printInorder(user.getRight());
         return scores;
