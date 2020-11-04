@@ -11,6 +11,8 @@ import java.io.FileInputStream;
 import java.io.IOException;
 import java.io.ObjectInputStream;
 
+import ui.Menu;
+
 public class Game {
 
     // -----------------------------------------------------------------
@@ -122,6 +124,78 @@ public class Game {
         grid.setFirst(grid.createBox(0, 0));
         grid.createGridDown(0, 0, grid.getFirst());
         grid.randomMirrorsDown(grid.getFirst());
+    }
+
+    /**
+     * Name: shootLaser
+     * Method used to shoot the laser beam at an edge or corner location of the grid so that it goes through it bouncing off the mirrors. <br>
+     * <b>pre: </b> The user has already entered a command to make a laser shot. <br>
+     * <b>post: </b> Shooting start location and shooting end location of the laser beam in question determined and printed in the grid with 'S' ("Start") and 'E' ("End"). <br>
+     * @param shot - Command entered by the user indicating a cell nomenclature and eventually the shot direction - shot = String, shot != null, shot != "".
+     * @param nickname - User nickname - nickname = String, nickname != null, nickname != "".
+     * @param rows - Grid rows - rows = int, rows != null, nickname != 0.
+     * @param columns - Grid columns - columns = int, columns != null, columns != 0.
+     * @param mirrors - Number of mirrors in the grid - mirrors = int, mirrors != null, mirrors != 0.
+     * @return A not empty String if something went wrong, or an empty String otherwise.
+    */
+    public String shootLaser(String shot, String nickname, int rows, int columns, int mirrors) {
+        String message = "";
+        String nomenclature = shot;
+        if (shot.substring(shot.length() - 2, shot.length() - 1).matches("[A-Z]") && shot.substring(shot.length() - 1, shot.length()).matches("[A-Z]")) {
+            String row = shot.substring(0, shot.length() - 2);
+            String column = shot.substring(shot.length() - 2, shot.length() - 1);
+            nomenclature = row + column;
+        }
+        Cell objSearch = grid.searchBoxDown(nomenclature, grid.getFirst());
+        if (objSearch != null) {
+            if (objSearch.getIsCorner()) {
+                if (shot.length() >= 3) {
+                    if ((shot.endsWith("H") && shot.charAt(shot.length() - 2) != 'H') || (shot.endsWith("H") && shot.charAt(shot.length() - 2) == 'H')) {
+                        objSearch.setIsStart(Cell.START);
+                        if (objSearch.getTypeCorner().equals(Cell.SUPERIOR_LEFT) || objSearch.getTypeCorner().equals(Cell.INFERIOR_LEFT))
+                            grid.moveRight(objSearch);
+                        else if (objSearch.getTypeCorner().equals(Cell.SUPERIOR_RIGHT) || objSearch.getTypeCorner().equals(Cell.INFERIOR_RIGHT)) {
+                            grid.moveLeft(objSearch);
+                        }
+                        objSearch.setIsStart(' ');
+                        grid.setFinish(false);
+                        lasersFired += 1;
+                        Menu.subMenu(nickname, true, rows, columns, mirrors);
+                    } else if ((shot.endsWith("V") && shot.charAt(shot.length() - 2) != 'V') || (shot.endsWith("V") && shot.charAt(shot.length() - 2)== 'V')) {
+                        objSearch.setIsStart(Cell.START);
+                        if (objSearch.getTypeCorner().equals(Cell.SUPERIOR_LEFT) || objSearch.getTypeCorner().equals(Cell.SUPERIOR_RIGHT))
+                            grid.moveDown(objSearch);
+                        else if (objSearch.getTypeCorner().equals(Cell.INFERIOR_LEFT) || objSearch.getTypeCorner().equals(Cell.INFERIOR_RIGHT)) {
+                            grid.moveUp(objSearch);
+                        }
+                        objSearch.setIsStart(' ');
+                        grid.setFinish(false);
+                        lasersFired += 1;
+                        Menu.subMenu(nickname, true, rows, columns, mirrors);
+                    } else
+                        message = "\n" + shot + " is not a valid command. Try again.";
+                } else
+                    message = "\nYou aren't entering the expected command. Try again.";
+            } else if (objSearch.getIsEdge()) {
+                objSearch.setIsStart(Cell.START);
+                if (objSearch.getTypeEdge().equals(Cell.LEFT_EDGE))
+                    grid.moveRight(objSearch);
+                else if (objSearch.getTypeEdge().equals(Cell.RIGHT_EDGE))
+                    grid.moveLeft(objSearch);
+                else if (objSearch.getTypeEdge().equals(Cell.TOP_EDGE))
+                    grid.moveDown(objSearch);
+                else if (objSearch.getTypeEdge().equals(Cell.BOTTOM_EDGE)) {
+                    grid.moveUp(objSearch);
+                }
+                objSearch.setIsStart(' ');
+                grid.setFinish(false);
+                lasersFired += 1;
+                Menu.subMenu(nickname, true, rows, columns, mirrors);
+            } else
+                message = "\nA shot can only be fired from a cell on an edge or in a corner of the grid. Try again.";
+        } else
+            message = "\nInvalid cell nomenclature. Try again.";
+        return message;
     }
 
     /**

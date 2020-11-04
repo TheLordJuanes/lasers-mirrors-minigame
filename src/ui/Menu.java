@@ -8,7 +8,6 @@ package ui;
 
 import java.io.IOException;
 import java.util.Scanner;
-import model.Cell;
 import model.Game;
 
 public class Menu {
@@ -25,14 +24,14 @@ public class Menu {
     // -----------------------------------------------------------------
 
     // scanner to read inputs by console.
-    public Scanner scanner = new Scanner(System.in);
+    public static Scanner scanner = new Scanner(System.in);
 
     // -----------------------------------------------------------------
     // Relations
     // -----------------------------------------------------------------
 
     // relation to the main model class.
-    private Game game;
+    private static Game game;
 
     // -----------------------------------------------------------------
     // Methods
@@ -101,7 +100,7 @@ public class Menu {
      * Name: playTheGame
      * Method used to play the game. <br>
     */
-    private void playTheGame() {
+    private static void playTheGame() {
         System.out.println("\nEnter your nickname, the rows number, the columns number and the mirrors number: ");
         try {
             String[] values = scanner.nextLine().split(SEPARATOR);
@@ -124,78 +123,23 @@ public class Menu {
 
     /**
      * Name: shootLaserBeam
-     * Method used to shoot the laser beam at an edge or corner location of the grid so that it goes through it bouncing off the mirrors. <br>
+     * Method used to shoot the laser beam, invoking the shootLaser method of the Game class. <br>
      * <b>pre: </b> Grid already created with all its boxes (nodes) and mirrors present. <br>
-     * <b>post: </b> Shooting start location and shooting end location of the laser beam in question determined and printed in the grid with 'S' ("Start") and 'E' ("End"). <br>
+     * <b>post: </b> Shooting process of the laser beam determined. <br>
      * @param nickname - User nickname - nickname = String, nickname != null, nickname != "".
      * @param rows - Grid rows - rows = int, rows != null, nickname != 0.
      * @param columns - Grid columns - columns = int, columns != null, columns != 0.
      * @param mirrors - Number of mirrors in the grid - mirrors = int, mirrors != null, mirrors != 0.
     */
-    private void shootLaserBeam(String nickname, int rows, int columns, int mirrors) {
+    public static void shootLaserBeam(String nickname, int rows, int columns, int mirrors) {
         System.out.println("\n" + nickname + ": " + game.getGrid().getMirrors() + " mirror(s) remaining.\n");
         game.getGrid().displayDown(game.getGrid().getFirst());
         System.out.print("\nEnter a command to make a laser shot: ");
         String shot = scanner.nextLine().toUpperCase();
-        String nomenclature = shot;
         System.out.println();
-        if (shot.substring(shot.length() - 2, shot.length() - 1).matches("[A-Z]") && shot.substring(shot.length() - 1, shot.length()).matches("[A-Z]")) {
-            String row = shot.substring(0, shot.length() - 2);
-            String column = shot.substring(shot.length() - 2, shot.length() - 1);
-            nomenclature = row + column;
-        }
-        Cell objSearch = game.getGrid().searchBoxDown(nomenclature, game.getGrid().getFirst());
-        if (objSearch != null) {
-            if (objSearch.getIsCorner()) {
-                if (shot.length() >= 3) {
-                    if ((shot.endsWith("H") && shot.charAt(shot.length() - 2) != 'H') || (shot.endsWith("H") && shot.charAt(shot.length() - 2) == 'H')) {
-                        objSearch.setIsStart(Cell.START);
-                        if (objSearch.getTypeCorner().equals(Cell.SUPERIOR_LEFT) || objSearch.getTypeCorner().equals(Cell.INFERIOR_LEFT))
-                            game.getGrid().moveRight(objSearch);
-                        else if (objSearch.getTypeCorner().equals(Cell.SUPERIOR_RIGHT) || objSearch.getTypeCorner().equals(Cell.INFERIOR_RIGHT)) {
-                            game.getGrid().moveLeft(objSearch);
-                        }
-                        objSearch.setIsStart(' ');
-                        game.getGrid().setFinish(false);
-                        game.setLasersFired(game.getLasersFired() + 1);
-                        subMenu(nickname, true, rows, columns, mirrors);
-                    } else if ((shot.endsWith("V") && shot.charAt(shot.length() - 2) != 'V') || (shot.endsWith("V") && shot.charAt(shot.length() - 2)== 'V')) {
-                        objSearch.setIsStart(Cell.START);
-                        if (objSearch.getTypeCorner().equals(Cell.SUPERIOR_LEFT) || objSearch.getTypeCorner().equals(Cell.SUPERIOR_RIGHT))
-                            game.getGrid().moveDown(objSearch);
-                        else if (objSearch.getTypeCorner().equals(Cell.INFERIOR_LEFT) || objSearch.getTypeCorner().equals(Cell.INFERIOR_RIGHT)) {
-                            game.getGrid().moveUp(objSearch);
-                        }
-                        objSearch.setIsStart(' ');
-                        game.getGrid().setFinish(false);
-                        game.setLasersFired(game.getLasersFired() + 1);
-                        subMenu(nickname, true, rows, columns, mirrors);
-                    } else {
-                        System.out.println("\n" + shot + " is not a valid command. Try again.");
-                        shootLaserBeam(nickname, rows, columns, mirrors);
-                    }
-                }
-            } else if (objSearch.getIsEdge()) {
-                objSearch.setIsStart(Cell.START);
-                if (objSearch.getTypeEdge().equals(Cell.LEFT_EDGE))
-                    game.getGrid().moveRight(objSearch);
-                else if (objSearch.getTypeEdge().equals(Cell.RIGHT_EDGE))
-                    game.getGrid().moveLeft(objSearch);
-                else if (objSearch.getTypeEdge().equals(Cell.TOP_EDGE))
-                    game.getGrid().moveDown(objSearch);
-                else if (objSearch.getTypeEdge().equals(Cell.BOTTOM_EDGE)) {
-                    game.getGrid().moveUp(objSearch);
-                }
-                objSearch.setIsStart(' ');
-                game.getGrid().setFinish(false);
-                game.setLasersFired(game.getLasersFired() + 1);
-                subMenu(nickname, true, rows, columns, mirrors);
-            } else {
-                System.out.println("\nA shot can only be fired from a cell on an edge or in a corner of the grid. Try again.");
-                shootLaserBeam(nickname, rows, columns, mirrors);
-            }
-        } else {
-            System.out.println("\nError. Invalid cell nomenclature. Try again.");
+        String message = game.shootLaser(shot, nickname, rows, columns, mirrors);
+        if (!message.equals("")) {
+            System.out.println(message);
             shootLaserBeam(nickname, rows, columns, mirrors);
         }
     }
@@ -210,7 +154,7 @@ public class Menu {
      * @param columns - Grid columns - columns = int, columns != null, columns != 0.
      * @param mirrors - Number of mirrors in the grid - mirrors = int, mirrors != null, mirrors != 0.
     */
-    private void subMenu(String nickname, boolean run, int rows, int columns, int mirrors) {
+    public static void subMenu(String nickname, boolean run, int rows, int columns, int mirrors) {
         if (run) {
             if (game.getGrid().getMirrors() > 0) {
                 System.out.println("\n" + nickname + ": " + game.getGrid().getMirrors() + " mirror(s) remaining.\n");
@@ -251,9 +195,8 @@ public class Menu {
                     subMenu(nickname, false, rows, columns, mirrors);
                 }
             }
-            if (game.getGrid().getMirrors() == 0 && !game.getGameOver()) {
+            if (game.getGrid().getMirrors() == 0 && !game.getGameOver())
                 gameWon(nickname, rows, columns, mirrors);
-            }
         }
     }
 
@@ -267,7 +210,7 @@ public class Menu {
      * @param columns - Grid columns - columns = int, columns != null, columns != 0.
      * @param mirrors - Number of mirrors in the grid - mirrors = int, mirrors != null, mirrors != 0.
     */
-    public void gameWon(String nickname, int rows, int columns, int mirrors) {
+    public static void gameWon(String nickname, int rows, int columns, int mirrors) {
         double score = game.scoreCalculation(rows, columns, mirrors);
         try {
             game.getBstUsers().addUser(nickname, score, rows, columns, mirrors);
@@ -285,7 +228,7 @@ public class Menu {
      * <b>post: </b> Guessing process of a mirror. <br>
      * @param nickname - User nickname - nickname = String, nickname != null, nickname != "".
     */
-    private void guessAMirror(String nickname) {
+    private static void guessAMirror(String nickname) {
         System.out.print("\nEnter 'L' (Locate), followed by the cell nomenclature, followed by 'L' or 'R' (Left or Right): ");
         String guess = scanner.nextLine().toUpperCase();
         System.out.println(game.guessMirror(guess, nickname));
@@ -295,7 +238,7 @@ public class Menu {
      * Name: showLeaderboardScores
      * Method used to show the leaderboard with the different scores from the users that have played, invoking the printInorder method from the BSTUsers class. <br>
     */
-    private void showLeaderboardScores() {
+    public static void showLeaderboardScores() {
         if (game.getBstUsers().getRoot() == null)
             System.out.println("\nThere are no registered scores yet to show them.\n");
         else {
