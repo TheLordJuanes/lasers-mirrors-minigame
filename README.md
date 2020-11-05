@@ -34,7 +34,7 @@ After doing many trials on the calculator with different mathematical operations
 
 ## Documentation 📃
 
-Check the functional requirements and the UML Class Diagram [here]
+Check the functional requirements and the UML Class Diagram [here](docs/DesignDocumentation.pdf)
 
 ## Technical conditions 🛠️
 
