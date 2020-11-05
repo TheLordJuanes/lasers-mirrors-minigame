@@ -100,7 +100,7 @@ public class Menu {
      * Name: playTheGame
      * Method used to play the game. <br>
     */
-    private static void playTheGame() {
+    private void playTheGame() {
         System.out.println("\nEnter your nickname, the rows number, the columns number and the mirrors number: ");
         try {
             String[] values = scanner.nextLine().split(SEPARATOR);
@@ -210,7 +210,7 @@ public class Menu {
      * @param columns - Grid columns - columns = int, columns != null, columns != 0.
      * @param mirrors - Number of mirrors in the grid - mirrors = int, mirrors != null, mirrors != 0.
     */
-    public static void gameWon(String nickname, int rows, int columns, int mirrors) {
+   private static void gameWon(String nickname, int rows, int columns, int mirrors) {
         double score = game.scoreCalculation(rows, columns, mirrors);
         try {
             game.getBstUsers().addUser(nickname, score, rows, columns, mirrors);
@@ -238,7 +238,7 @@ public class Menu {
      * Name: showLeaderboardScores
      * Method used to show the leaderboard with the different scores from the users that have played, invoking the printInorder method from the BSTUsers class. <br>
     */
-    public static void showLeaderboardScores() {
+    public void showLeaderboardScores() {
         if (game.getBstUsers().getRoot() == null)
             System.out.println("\nThere are no registered scores yet to show them.\n");
         else {
